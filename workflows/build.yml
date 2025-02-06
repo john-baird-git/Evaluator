@@ -11,7 +11,9 @@ jobs:
 
       - name: Inject API key
         run: |
-          sed -i "s/__API_KEY__/${{ secrets.JKEY }}/g" index.html
+          cp index.html index.tmp
+          cat index.tmp | sed "s/ANTHROPIC_API_KEY_PLACEHOLDER/${{ secrets.JKEY }}/g" > index.html
+          rm index.tmp
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
