@@ -45,15 +45,24 @@
         let apiKey;
 
         // Fetch the config file that contains the API key
-        fetch('.config.json')
-            .then(response => response.json())
-            .then(config => {
-                apiKey = config.apiKey;
-            })
-            .catch(error => {
-                console.error('Error loading config:', error);
-            });
-
+        fetch('config.json')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(config => {
+        if (!config.apiKey) {
+            throw new Error('No API key found in config');
+        }
+        apiKey = config.apiKey;
+        console.log('API key loaded successfully');
+    })
+    .catch(error => {
+        console.error('Error loading config:', error);
+        document.getElementById('result').textContent = `Error loading config: ${error.message}`;
+    });
         async function evaluateOutput() {
             if (!apiKey) {
                 document.getElementById('result').textContent = 'Error: API key not loaded';
