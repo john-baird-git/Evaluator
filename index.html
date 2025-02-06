@@ -42,13 +42,24 @@
     <div id="result"></div>
 
     <script>
-        const apiKey = 'ANTHROPIC_API_KEY_PLACEHOLDER';
+                async function evaluateOutput() {
+    const aiOutput = document.getElementById('aiOutput').value;
+    
+    try {
+        const response = await fetch('YOUR_VERCEL_URL/api/evaluate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ aiOutput })
+        });
 
-        async function evaluateOutput() {
-            if (!apiKey || apiKey === 'ANTHROPIC_API_KEY_PLACEHOLDER') {
-                document.getElementById('result').textContent = 'Error: API key not loaded';
-                return;
-            }
+        const data = await response.json();
+        document.getElementById('result').textContent = data.content[0].text;
+    } catch (error) {
+        document.getElementById('result').textContent = 'Error: ' + error.message;
+    }
+}
 
             const aiOutput = document.getElementById('aiOutput').value;
 
