@@ -9,13 +9,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Create config file
+      - name: Inject API key
         run: |
-          echo "{\"apiKey\": \"${{ secrets.JKEY }}\"}" > config.json
+          sed -i "s/__API_KEY__/${{ secrets.JKEY }}/g" index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
-          force_orphan: true 
+          force_orphan: true
