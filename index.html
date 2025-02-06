@@ -47,12 +47,14 @@
         // Fetch the config file that contains the API key
         fetch('config.json')
     .then(response => {
+        console.log('Config response:', response.status);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
     })
     .then(config => {
+        console.log('Config loaded:', config); // Add this line
         if (!config.apiKey) {
             throw new Error('No API key found in config');
         }
