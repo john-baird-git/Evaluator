@@ -1,10 +1,6 @@
-// Use the API key from config
-function makeApiCall() {
-    fetch('https://api-url.com', {
-        headers: {
-            'Authorization': `Bearer ${config.API_KEY}`
-        }
-    })
+// script.js
+fetch('config.json')
     .then(response => response.json())
-    .then(data => console.log(data));
-}
+    .then(config => {
+        // Use config.apiKey for your API calls
+    });

@@ -1,2 +1,0 @@
-// Create .gitignore file and add:
-config.js
