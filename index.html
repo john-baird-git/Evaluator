@@ -45,7 +45,7 @@
         let apiKey;
 
         // Fetch the config file that contains the API key
-        fetch('config.json')
+        fetch('/Evaluator/config.json')
             .then(response => response.json())
             .then(config => {
                 apiKey = config.apiKey;
