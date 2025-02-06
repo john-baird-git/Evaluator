@@ -45,7 +45,7 @@
         let apiKey;
 
         // Fetch the config file that contains the API key
-        fetch('./config.json')
+        fetch('https://john-baird-git.github.io/Evaluator/config.json')
     .then(response => {
         console.log('Config response:', response.status);
         if (!response.ok) {
