@@ -1,4 +1,4 @@
 // config.js
 const config = {
-    Jkey: 'your-api-key-here'
+    JKEY: 'your-api-key-here'
 };
