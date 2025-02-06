@@ -11,7 +11,7 @@ jobs:
 
       - name: Create config file
         run: |
-          echo "{\"apiKey\": \"${{ secrets.API_KEY }}\"}" > config.json
+          echo "{\"apiKey\": \"${{ secrets.JKEY }}\"}" > config.json
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
