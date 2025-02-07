@@ -63,15 +63,11 @@
 
                 const data = await response.json();
                 
-                // Log the full response to see its structure
-                console.log('API Response:', data);
-
-                // Extract the content from the response
-                if (data && data.content) {
-                    resultDiv.textContent = data.content;
+                // Extract the text from the correct path in the response
+                if (data && data.content && data.content[0] && data.content[0].text) {
+                    resultDiv.textContent = data.content[0].text;
                 } else {
-                    // For debugging, show the full response structure
-                    resultDiv.textContent = JSON.stringify(data, null, 2);
+                    resultDiv.textContent = 'Could not find evaluation result in response.';
                 }
             } catch (error) {
                 resultDiv.textContent = 'Error: ' + error.message;
