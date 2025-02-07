@@ -61,18 +61,12 @@
                 }
 
                 const data = await response.json();
-                
-                // Check if data.content exists (for newer Anthropic API)
-                if (data.content) {
+                console.log('API Response:', data); // Debug log
+
+                if (data && data.content) {
                     resultDiv.textContent = data.content;
-                }
-                // Check if data.messages exists (for older Anthropic API)
-                else if (data.messages && data.messages[0]) {
-                    resultDiv.textContent = data.messages[0].content;
-                }
-                // If neither exists, show the raw response
-                else {
-                    resultDiv.textContent = JSON.stringify(data, null, 2);
+                } else {
+                    resultDiv.textContent = 'Received response: ' + JSON.stringify(data, null, 2);
                 }
             } catch (error) {
                 resultDiv.textContent = 'Error: ' + error.message;
