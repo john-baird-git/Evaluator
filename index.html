@@ -44,7 +44,8 @@
     <script>
         async function evaluateOutput() {
             const aiOutput = document.getElementById('aiOutput').value;
-            document.getElementById('result').textContent = 'Evaluating...';
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Evaluating...';
             
             try {
                 const response = await fetch('https://ai-safety-evaluator-api-wu4.vercel.app/api/evaluate', {
@@ -60,9 +61,22 @@
                 }
 
                 const data = await response.json();
-                document.getElementById('result').textContent = data.messages[0].content;
+                
+                // Check if data.content exists (for newer Anthropic API)
+                if (data.content) {
+                    resultDiv.textContent = data.content;
+                }
+                // Check if data.messages exists (for older Anthropic API)
+                else if (data.messages && data.messages[0]) {
+                    resultDiv.textContent = data.messages[0].content;
+                }
+                // If neither exists, show the raw response
+                else {
+                    resultDiv.textContent = JSON.stringify(data, null, 2);
+                }
             } catch (error) {
-                document.getElementById('result').textContent = 'Error: ' + error.message;
+                resultDiv.textContent = 'Error: ' + error.message;
+                console.error('Full error:', error);
             }
         }
     </script>
